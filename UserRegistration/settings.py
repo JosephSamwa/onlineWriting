@@ -1,4 +1,5 @@
 from pathlib import Path
+from dotenv import load_dotenv
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -13,7 +14,12 @@ SECRET_KEY = 'django-insecure-%sj_+9mfzc(n=&@9pi#pf-04pl(=psj8zw_#sqolouc_a@am8y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'yourdomain.com',  # Add your domain if you have one
+    '.vercel.app'
+    ]
 
 # Application definition
 INSTALLED_APPS = [
@@ -60,16 +66,27 @@ WSGI_APPLICATION = 'UserRegistration.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+load_dotenv()
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT', '5432'),
+        'NAME': os.getenv('POSTGRES_DATABASE'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
